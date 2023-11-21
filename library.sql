@@ -5,13 +5,15 @@
 		`publisher_PublisherPhone` VARCHAR(50) NOT NULL
 );
  -- SELECT * FROM publisher
-	-- CREATE TABLE `book` (
+
+	 CREATE TABLE `book` (
 		`book_id` INT PRIMARY KEY NOT NULL,
 		`book_Title` VARCHAR(100) NOT NULL,
 		`book_PublisherName` VARCHAR(100) NOT NULL,
        `publisher_id` serial NOT NULL,
         CONSTRAINT `publisher_id` FOREIGN KEY (`publisher_id`) REFERENCES publisher(`publisher_id`)
   	);
+
 
 	CREATE TABLE `library_branch` (
 		`library_branch_id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -35,26 +37,28 @@
 		`book_loans_BookID` INT NOT NULL,
 		`book_loans_BranchID` INT NOT NULL,
 		`book_loans_CardNo` INT NOT NULL,
-        `book_id` INT NOT NULL,
+                `book_id` INT NOT NULL,
 		`book_loans_DateOut` VARCHAR(50) NOT NULL,
 		`book_loans_DueDate` VARCHAR(50) NOT NULL,
 		`library_branch_id` INT NOT NULL ,
-        `borrower_id` serial NOT NULL,
+                `borrower_id` serial NOT NULL,
 		CONSTRAINT `fk_book_id1` FOREIGN KEY(`book_id`) REFERENCES book(`book_id`),
 		CONSTRAINT `fk_branch_id1` FOREIGN KEY (`library_branch_id`) REFERENCES library_branch(`library_branch_id`),
 		CONSTRAINT `cardno` FOREIGN KEY(`borrower_id`) REFERENCES  borrower(`borrower_id`)
 	);
 
+
 	-- SELECT * FROM tbl_book_loans
 		/* Use GETDATE() to retrieve the date values for Date out. Use DATEADD for the DueDate*/
-	 
+
+
 	CREATE TABLE `book_copies` (
-		`book_copies_id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	        `book_copies_id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 		`book_copies_BookID` INT NOT NULL,
-        `book_copies_No_Of_Copies` INT NOT NULL,
-        `book_copies_BranchID` INT NOT NULL,
-		`book_id` INT NOT NULL ,
-		`library_branch_id` INT NOT NULL ,
+                `book_copies_No_Of_Copies` INT NOT NULL,
+                `book_copies_BranchID` INT NOT NULL,
+	        `book_id` INT NOT NULL ,
+	        `library_branch_id` INT NOT NULL ,
         CONSTRAINT `fk_book_id2` FOREIGN KEY (`book_id`) REFERENCES book(`book_id`) ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT `fk_branch_id2` FOREIGN KEY(`library_branch_id`) REFERENCES library_branch(`library_branch_id`) ON UPDATE CASCADE ON DELETE CASCADE
 		
@@ -70,7 +74,8 @@
         CONSTRAINT `fk_book_id3` FOREIGN KEY(`book_id`) REFERENCES book(`book_id`) 
         );
 
-POPULATING THE TABLE
+-- POPULATING THE TABLE
+
 INSERT INTO publisher (publisher_id, publisher_PublisherName, publisher_PublisherAddress, publisher_PublisherPhone)
 		VALUES
 		('1', 'DAW Books','375 Hudson Street, New York, NY 10014','212-366-2000'),
